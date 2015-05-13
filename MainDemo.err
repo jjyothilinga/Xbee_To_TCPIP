@@ -1,2 +1,3 @@
-Warning[2066] D:\jo\Ideonics\Repository\Xbee_To_TCPIP\TCPIP\MainDemo.c 254 : type qualifier mismatch in assignment
-Warning[2066] D:\jo\Ideonics\Repository\Xbee_To_TCPIP\TCPIP\MainDemo.c 313 : type qualifier mismatch in assignment
+Warning[2054] D:\jo\Ideonics\Repository\Xbee_To_TCPIP\TCPIP\MainDemo.c 209 : suspicious pointer conversion
+Warning[2066] D:\jo\Ideonics\Repository\Xbee_To_TCPIP\TCPIP\MainDemo.c 269 : type qualifier mismatch in assignment
+Warning[2066] D:\jo\Ideonics\Repository\Xbee_To_TCPIP\TCPIP\MainDemo.c 287 : type qualifier mismatch in assignment

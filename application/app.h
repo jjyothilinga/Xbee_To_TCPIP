@@ -5,12 +5,13 @@
 #include "TCPIP Stack\GenericTypeDefs.h"
 
 
-#define MAX_ENTRIES 25
+#define MAX_ENTRIES 10
 #define	MAX_LENGTH_OF_ENTRY 10
 
 enum
 {
-	CMD_GET_LOG_STATUS = 0X80
+	CMD_DATA = 0X80, 
+	CMD_IP_SET = 0X81
 };
 
 

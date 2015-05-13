@@ -25,6 +25,10 @@ typedef struct _EVENT_LOG
 
 #pragma idata LOG_DATA
 EVENT_LOG log = {0};
+//Two dimesional buffer used to hold the bytes of IP address 
+UINT8 buffer[4][4] = {0};
+//Flag used to detect change in IP address and it is set at APP call back function
+UINT8 IPChangeFlag = 0;
 #pragma idata
 
 
@@ -130,16 +134,59 @@ void logWrite( far UINT8 *data, UINT8 length )
 
 UINT8 APP_comCallBack( UINT8 *rxPacket, UINT8* txCode, UINT8** txPacket)
 {
-
-	UINT8 i;
-   	
-
+	UINT8 i, j = 0;  	
 	UINT8 rxCode = rxPacket[0];
+	UINT8 length = strlen(rxPacket+1);
+	//Used to store the address string 
+	UINT8 *cPtr = 0;
 
-	UINT8 length = strlen(rxPacket);
+	//Used as null pointer to use in 'strtok' function
+	UINT8 *cNullPtr = 0;
+
+	//Used as delimiter in 'strtok' function
+	const char delim[] = ".";
+
+	//Used to store store starting address of parsed string
+	UINT8 *token[4] = {0};
+
+
 		    	
+	switch(rxCode)
+	{
+		case CMD_DATA:
+			logWrite((rxPacket+1), length);
+			break;
 
-	logWrite(rxPacket, length);
+		case CMD_IP_SET:
+
+			cPtr = (UINT8 *)strtok((rxPacket+1), delim);
+			token[j] = cPtr;
+			while( cPtr )
+			{
+				j++;
+				cPtr = (UINT8 *)strtok(cNullPtr, delim);
+				token[j] = cPtr;
+			}
+
+			//Function used to store IP bytes in individual buffer
+			for( j = 0; j < 4; j++)
+			{	
+				i = 0;		
+				while( (*(token[j]+i)) != '\0')
+				{
+					buffer[j][i] = *(token[j]+i);
+					i++;
+				}
+			}
+
+			//Set the flag to indicate new IP address received 
+			IPChangeFlag = 1;
+			break;
+
+		default:
+			break;
+	}
+	
 
 	return length;
 

@@ -54,6 +54,7 @@ void COM_reset(void);
 void COM_txData(void);
 UINT8 checksum(UINT8 *buffer, UINT8 length);
 void COM_restart();
+void COM_restart(void);
 
 void COM_init(UINT8 rx_sop , UINT8 rx_eop ,UINT8 tx_sop , UINT8 tx_eop , UINT8 (*callBack)(UINT8* rxdata, UINT8* txCode,UINT8** txPacket))
 {
@@ -67,7 +68,7 @@ void COM_init(UINT8 rx_sop , UINT8 rx_eop ,UINT8 tx_sop , UINT8 tx_eop , UINT8 (
 	COM_restart();
 }
 
-void COM_restart()
+void COM_restart(void)
 {
 	UINT8 j;
 #if (defined __18F8722_H) ||(defined __18F46K22_H)
